@@ -1,0 +1,1 @@
+This is where all the Godot scenes will go. Please use folders to differentiate the different types of scenes, example, Players, Enemies, Doors, etc.

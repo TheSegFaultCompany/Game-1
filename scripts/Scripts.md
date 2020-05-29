@@ -1,0 +1,1 @@
+This is the folder in which all of out scripts will go under, please use folders to differentiate the types of scripts from each other.
