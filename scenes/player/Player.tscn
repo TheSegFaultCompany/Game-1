@@ -1,0 +1,62 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://scripts/Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/main character/walking (right)/walk_f2.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/main character/walking (right)/walk_f12.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/main character/walking (right)/walk_f0.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/main character/walking (right)/walk_f7.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/main character/walking (right)/walk_f11.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/main character/walking (right)/walk_f4.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/main character/walking (right)/walk_f1.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/main character/idle/main_idle-0.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/main character/idle/main_idle-1.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/main character/walking (right)/walk_f5.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/main character/walking (right)/walk_f6.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/main character/walking (right)/walk_f8.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/main character/walking (right)/walk_f10.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/main character/walking (right)/walk_f3.png" type="Texture" id=15]
+[ext_resource path="res://assets/sprites/main character/walking (right)/walk_f9.png" type="Texture" id=16]
+[ext_resource path="res://scenes/player/chain.tscn" type="PackedScene" id=17]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 15 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 5 ), ExtResource( 13 ), ExtResource( 16 ), ExtResource( 14 ), ExtResource( 6 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "Walking (right)",
+"speed": 15.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8.06226, 10.9804 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 8, 23.2081 )
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 1 )
+grappling = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0.0595398, 0 )
+frames = SubResource( 1 )
+frame = 1
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionCrouching" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 13.0231 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="CollisionStanding" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 0.735302 )
+shape = SubResource( 3 )
+
+[node name="chain" parent="." instance=ExtResource( 17 )]
+position = Vector2( -1, 0 )

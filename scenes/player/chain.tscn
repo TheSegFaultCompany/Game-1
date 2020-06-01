@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/sprites/main character/chain/sprite_1.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/main character/chain/sprite_0.png" type="Texture" id=2]
+[ext_resource path="res://scripts/Player/chain.gd" type="Script" id=3]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 1.01044
+height = 1.77968
+
+[node name="chain" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="links" type="Sprite" parent="."]
+scale = Vector2( 0.125, 1 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( -16, 0 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 32, 360 )
+
+[node name="Tip" type="KinematicBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Hook" type="Sprite" parent="Tip"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tip"]
+position = Vector2( 0, 1.871 )
+shape = SubResource( 1 )
