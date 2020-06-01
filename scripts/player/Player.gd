@@ -64,6 +64,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Moving the character right
 	if Input.is_action_pressed("ui_right"):
+		$AnimatedSprite.flip_h = false
 		if Input.is_action_pressed("ui_down"):
 			motion.x = min(motion.x + ACCELERATION, SNECK_SPEED)
 		else:
@@ -71,11 +72,12 @@ func _physics_process(delta: float) -> void:
 		$AnimatedSprite.play("Walking (right)")
 	# Moving the character left
 	elif Input.is_action_pressed("ui_left"):
+		$AnimatedSprite.flip_h = true
 		if Input.is_action_pressed("ui_down"):
 			motion.x = max(motion.x - ACCELERATION, -SNECK_SPEED)
 		else:
 			motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
-		$AnimatedSprite.play("default")
+		$AnimatedSprite.play("Walking (right)")
 	# Idle animation played otherwise
 	else:
 		$AnimatedSprite.play("default")
