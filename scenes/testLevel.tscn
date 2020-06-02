@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/tiles/city tileset/city_tileset.res" type="TileSet" id=1]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/backgrounds/city_bg.png" type="Texture" id=3]
 [ext_resource path="res://scenes/player/camera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/tiles/city tileset/factory.png" type="Texture" id=5]
+[ext_resource path="res://scenes/Enemies/BasicEnemyClass.tscn" type="PackedScene" id=6]
 
 [node name="Node2D" type="Node2D"]
 
@@ -44,4 +45,7 @@ flip_h = true
 position = Vector2( -16, -328 )
 z_index = -1
 texture = ExtResource( 5 )
+
+[node name="Node2D" parent="." instance=ExtResource( 6 )]
+position = Vector2( 116, -213 )
 [connection signal="turnOnShader" from="Player" to="Player/Camera2D" method="_on_Player_turnOnShader"]
