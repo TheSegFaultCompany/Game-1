@@ -1,0 +1,30 @@
+[gd_scene format=2]
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+
+[node name="LeftSearchRay" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( -150, 0 )
+
+[node name="RightSearchRay" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 150, 0 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+margin_top = -3.0
+margin_right = 158.0
+margin_bottom = 3.0
+color = Color( 0.666667, 0.627451, 0.196078, 0.431373 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightFloorCheck" type="RayCast2D" parent="."]
+position = Vector2( 8, 11 )
+enabled = true
+cast_to = Vector2( 0, 50 )
+
+[node name="LeftFloorCheck" type="RayCast2D" parent="."]
+position = Vector2( -8, 11 )
+enabled = true

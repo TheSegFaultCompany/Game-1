@@ -75,21 +75,23 @@ shape = SubResource( 4 )
 [node name="stone_float_R" type="Sprite" parent="."]
 position = Vector2( 122, 16 )
 texture = ExtResource( 7 )
+offset = Vector2( 0, -1 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="stone_float_R"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="stone_float_R/StaticBody2D"]
-position = Vector2( -3, 1 )
+position = Vector2( -3, 0 )
 shape = SubResource( 5 )
 
 [node name="stone_floating_L" type="Sprite" parent="."]
 position = Vector2( 118, 61 )
 texture = ExtResource( 6 )
+offset = Vector2( 0, -1 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="stone_floating_L"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="stone_floating_L/StaticBody2D"]
-position = Vector2( 3, 1 )
+position = Vector2( 3, 0 )
 shape = SubResource( 6 )
 
 [node name="stone_floating_M" type="Sprite" parent="."]
@@ -108,7 +110,7 @@ texture = ExtResource( 5 )
 [node name="StaticBody2D" type="StaticBody2D" parent="ramp_L"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ramp_L/StaticBody2D"]
-polygon = PoolVector2Array( -19, 19, 16, -13, 16, 16 )
+polygon = PoolVector2Array( -19, 19, 16, -14, 16, 16 )
 
 [node name="ramp_R" type="Sprite" parent="."]
 position = Vector2( 228, 56 )

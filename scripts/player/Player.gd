@@ -29,7 +29,7 @@ func _input(event: InputEvent) -> void:
 			$chain.release()
 
 # Process where all the movement calculations are done
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("turn_on_shader"):
 		emit_signal("turnOnShader")
 	

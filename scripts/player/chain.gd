@@ -20,7 +20,7 @@ func release() -> void:
 	flying = false
 	hooked = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	self.visible = flying or hooked
 	if not self.visible:
 		return
@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 	if tip_loc.length() > 1000:
 		release()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	$Tip.global_position = tip
 	if flying:
 		if $Tip.move_and_collide(direction * SPEED):
