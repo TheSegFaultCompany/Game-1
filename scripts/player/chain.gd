@@ -11,15 +11,18 @@ const SPEED = 50
 var flying = false
 var hooked = false
 
+# Function for shooting the chain from the player
 func shoot(dir: Vector2) -> void:
 	direction = dir.normalized()
 	flying = true
 	tip = self.global_position
 
+# Function to release the hook once the click no longer happens
 func release() -> void:
 	flying = false
 	hooked = false
 
+# Function to throw the player towards the chain
 func _process(_delta: float) -> void:
 	self.visible = flying or hooked
 	if not self.visible:
@@ -32,6 +35,8 @@ func _process(_delta: float) -> void:
 	if tip_loc.length() > 1000:
 		release()
 
+# Function for the main physics movement to throw the tip of the hook
+# Towards direction of the mouse click
 func _physics_process(_delta: float) -> void:
 	$Tip.global_position = tip
 	if flying:

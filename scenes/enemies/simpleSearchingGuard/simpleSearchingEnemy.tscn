@@ -1,6 +1,10 @@
 [gd_scene format=2]
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
+[node name="KinematicBody2D" type="KinematicBody2D" groups=[
+"enemy",
+]]
+collision_layer = 5
+collision_mask = 5
 
 [node name="LeftSearchRay" type="RayCast2D" parent="."]
 enabled = true
@@ -23,8 +27,9 @@ __meta__ = {
 [node name="RightFloorCheck" type="RayCast2D" parent="."]
 position = Vector2( 8, 11 )
 enabled = true
-cast_to = Vector2( 0, 50 )
+cast_to = Vector2( 0, 25 )
 
 [node name="LeftFloorCheck" type="RayCast2D" parent="."]
 position = Vector2( -8, 11 )
 enabled = true
+cast_to = Vector2( 0, 25 )

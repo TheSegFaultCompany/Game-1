@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/tiles/city tileset/city_tileset.res" type="TileSet" id=1]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/backgrounds/city_bg.png" type="Texture" id=3]
 [ext_resource path="res://scenes/player/camera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/tiles/city tileset/factory.png" type="Texture" id=5]
-[ext_resource path="res://scenes/enemies/simpleSearchEnemy-SkeletonGuard.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/enemies/simpleSearchingGuard/simpleSearchEnemy-SkeletonGuard.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scripts/enemies/ghostDimensionManager.gd" type="Script" id=7]
+[ext_resource path="res://scenes/enemies/simpleSearchingGuard/simpleSearchEnemy-NormalGuard.tscn" type="PackedScene" id=8]
 
 [node name="Node2D" type="Node2D"]
 
@@ -17,20 +18,43 @@ z_index = -1
 texture = ExtResource( 3 )
 centered = false
 offset = Vector2( 0, -100 )
-region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="Player" parent="." groups=[
 "player",
 ] instance=ExtResource( 2 )]
-position = Vector2( -210.055, -28.9298 )
+position = Vector2( 544, -216 )
+scale = Vector2( 1.00083, 1.02313 )
+z_index = 1
 
 [node name="Camera2D" parent="Player" instance=ExtResource( 4 )]
 current = true
 limit_left = -243
 limit_bottom = 500
 
+[node name="EnemyGroup" type="Node" parent="."]
+script = ExtResource( 7 )
+
+[node name="SkeletonGuard3" parent="EnemyGroup" instance=ExtResource( 6 )]
+position = Vector2( 270, -350 )
+
+[node name="SkeletonGuard" parent="EnemyGroup" instance=ExtResource( 6 )]
+position = Vector2( 32, -152 )
+
+[node name="NormalGuard" parent="EnemyGroup" instance=ExtResource( 8 )]
+position = Vector2( 32, -24 )
+
+[node name="NormalGuard2" parent="EnemyGroup" instance=ExtResource( 8 )]
+position = Vector2( 595, -225 )
+
+[node name="SkeletonGuard2" parent="EnemyGroup" instance=ExtResource( 6 )]
+position = Vector2( 389, -546 )
+
+[node name="NormalGuard3" parent="EnemyGroup" instance=ExtResource( 8 )]
+position = Vector2( 1221, -356 )
+
 [node name="TileMap" type="TileMap" parent="."]
+z_index = 1
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 collision_layer = 7
@@ -48,25 +72,5 @@ flip_h = true
 position = Vector2( -16, -328 )
 z_index = -1
 texture = ExtResource( 5 )
-
-[node name="EnemyGroup" type="Node" parent="."]
-script = ExtResource( 7 )
-
-[node name="SkeletonGuard3" parent="EnemyGroup" instance=ExtResource( 6 )]
-position = Vector2( 304, -376 )
-collision_layer = 5
-collision_mask = 5
-
-[node name="SkeletonGuard2" parent="EnemyGroup" instance=ExtResource( 6 )]
-modulate = Color( 0.960784, 0.643137, 0.333333, 1 )
-position = Vector2( 120, -24 )
-collision_layer = 5
-collision_mask = 5
-ghost_dimension = false
-
-[node name="SkeletonGuard" parent="EnemyGroup" instance=ExtResource( 6 )]
-position = Vector2( 32, -152 )
-collision_layer = 5
-collision_mask = 5
-[connection signal="turnOnShader" from="Player" to="Player/Camera2D" method="_on_Player_turnOnShader"]
 [connection signal="turnOnShader" from="Player" to="EnemyGroup" method="_on_Player_turnOnShader"]
+[connection signal="turnOnShader" from="Player" to="Player/Camera2D" method="_on_Player_turnOnShader"]
