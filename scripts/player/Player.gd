@@ -20,13 +20,16 @@ export var anti_gravity = false
 # Motion vector for movement of the player object
 var motion = Vector2()
 
-# Function for the click event, use the grappling hook
+# Function for the click event, use the grappling hook or toggle reverse gravity
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.pressed and grappling == true:
 			$chain.shoot(event.position - get_viewport().size * 0.5)
 		else:
 			$chain.release()
+	if event is InputEventKey and event.pressed:
+		if event.scancode == KEY_T:
+			anti_gravity = !anti_gravity
 
 # Process where all the movement calculations are done
 func _physics_process(_delta: float) -> void:
@@ -40,9 +43,11 @@ func _physics_process(_delta: float) -> void:
 	var walk = (Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")) * MAX_SPEED
 	
 	# Falling Up or Down, depending on the orientation of the gravity
-	if (anti_gravity):
+	if (anti_gravity == true):
+		$AnimatedSprite.flip_v = true
 		motion.y -= GRAVITY
 	else:
+		$AnimatedSprite.flip_v = false
 		motion.y += GRAVITY
 	
 	# Hook Physics
