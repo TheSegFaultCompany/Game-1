@@ -113,7 +113,16 @@ func _physics_process(_delta: float) -> void:
 			if motion.x > 0:
 				$AnimatedSprite.play("Walking (right)")
 			pass
-	motion = move_and_slide(motion, UP)
+			
+	if ($RayCast2D.is_colliding() == false):
+		motion = move_and_slide(motion, Vector2(0, -9.8))
+	else:
+		if ($RayCast2D.get_collider().get_class() == "RigidBody2D"):
+			motion.y = 0
+			_normalJumping(friction)
+			motion = move_and_slide(motion, UP)
+		else:
+			motion = move_and_slide(motion, UP)
 
 func _upsideDownJumping(friction: bool) -> void:
 	if Input.is_action_just_pressed("ui_up"):
