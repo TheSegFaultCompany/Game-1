@@ -12,7 +12,7 @@ const CHAIN_PULL = 25
 
 # The vector for the chain velocity
 var chain_velocity := Vector2(0, 0)
-
+var dead = false
 # Export variables for toggling abilities
 export var grappling = false
 export var anti_gravity = false
@@ -28,8 +28,21 @@ func _input(event: InputEvent) -> void:
 		else:
 			$chain.release()
 
+func impale():
+	var bloodSpatter = preload("res://scenes/player/BloodEffect.tscn")
+	self.add_child(bloodSpatter.instance())
+	self.set_collision_layer_bit(0, 0)
+	self.set_collision_mask_bit(0, 0)
+	$AnimatedSprite.play("default")
+	kill()
+
+func kill():
+	dead = true
+
 # Process where all the movement calculations are done
 func _physics_process(_delta: float) -> void:
+	if dead:
+		return
 	if Input.is_action_just_pressed("turn_on_shader"):
 		emit_signal("turnOnShader")
 	
@@ -107,8 +120,7 @@ func _physics_process(_delta: float) -> void:
 		else:
 			if motion.x > 0:
 				$AnimatedSprite.play("Walking (right)")
-			pass
-	motion = move_and_slide(motion, UP)
+	motion = move_and_slide_with_snap(motion, Vector2(0, -35), UP)
 
 func _upsideDownJumping(friction: bool) -> void:
 	if Input.is_action_just_pressed("ui_up"):

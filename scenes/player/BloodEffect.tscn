@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 1, 1 )
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 10.0
+scale = 3.0
+color = Color( 0.784314, 0, 0, 1 )
+
+[node name="BloodEffect" type="Particles2D"]
+amount = 20
+local_coords = false
+process_material = SubResource( 1 )

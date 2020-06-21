@@ -20,8 +20,6 @@ var ghost = ghost_dimension
 
 func _ready():
 	if (ghost_dimension == true):
-#		_deactivate_node()
-#		set_physics_process(false)
 		_change_collision()
 		self.hide()
 
@@ -69,15 +67,6 @@ func _physics_process(_delta):
 	motion.x *= direction
 	move_and_slide(motion, Vector2(0, -1))
 
-# Function to deactivate all the collision in the node, for full deactivation
-func _deactivate_node():
-	right_coll.set_disabled(true)
-	right_floor.set_enabled(false)
-	right_floor.set_enabled(false)
-	left_coll.set_disabled(true)
-	left_floor.set_enabled(false)
-	left_search.set_enabled(false)
-
 # Set the collision to not collide with the player, shifted to another layer
 func _change_collision():
 	self.set_collision_layer_bit(0, false)
@@ -95,12 +84,8 @@ func _on_Player_turnOnShader():
 	if (ghost_dimension == true):
 		ghost_dimension = false
 		_activate_collision()
-#		flip_character()
-#		set_physics_process(true)
 		self.show()
 	elif (ghost_dimension == false):
 		ghost_dimension = true
 		_change_collision()
-#		_deactivate_node()
-#		set_physics_process(false)
 		self.hide()

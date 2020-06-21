@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/sprites/main character/chain/sprite_1.png" type="Texture" id=1]
+[ext_resource path="res://scripts/puzzle_props/platforms/swingingPlatform.gd" type="Script" id=2]
+[ext_resource path="res://scenes/puzzle_props/platforms/Platform.tscn" type="PackedScene" id=3]
+
+[node name="SwingingPlatform" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Links" type="Sprite" parent="."]
+rotation = -1.5708
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( -16, 0 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 32, 360 )
+
+[node name="KinematicBody2D" parent="Links" instance=ExtResource( 3 )]
+position = Vector2( 2, 360 )
+rotation = 1.5708
+scale = Vector2( 2, 2 )
+motion/sync_to_physics = false
+
+[node name="Tween" type="Tween" parent="."]
+playback_process_mode = 0
+
+[node name="Tween2" type="Tween" parent="."]
+playback_process_mode = 0
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

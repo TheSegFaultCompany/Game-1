@@ -10,6 +10,7 @@ var len_upper = 0
 var len_middle = 0
 var len_lower = 0
 
+# Required to flip everything
 export var flipped = true
 
 var goal_pos = Vector2()
@@ -19,6 +20,9 @@ var step_height = 40
 var step_rate = 0.5
 var step_time = 0.0
 
+var attack_obj = null
+
+# Readying the leg when it's loaded
 func _ready():
 	len_upper = joint1.position.x
 	len_middle = joint2.position.x
@@ -30,6 +34,10 @@ func _ready():
 		joint2.get_node("Sprite").flip_h = true
 
 func _process(_delta):
+	
+	if attack_obj != null:
+		goal_pos = attack_obj.global_position + (attack_obj.global_position - global_position)
+	
 	step_time += _delta
 	var target_pos = Vector2()
 	var t = step_time / step_rate
@@ -39,8 +47,26 @@ func _process(_delta):
 		target_pos = int_pos.linear_interpolate(goal_pos, (t - 0.5) / 0.5)
 	else:
 		target_pos = goal_pos
+		if attack_obj != null:
+			var result = get_world_2d().direct_space_state.intersect_ray(joint1.global_position, hand.global_position , [], 1)
+			if result and result.collider.name == "Player": #and !attack_obj.dead:
+			#if hand.global_position.distance_to(attack_obj.global_position) < 20 and !attack_obj.dead:
+				attack_obj.impale()
+				var s_pos = attack_obj.global_position
+				attack_obj.get_parent().remove_child(attack_obj)
+				hand.add_child(attack_obj)
+				attack_obj.global_position = s_pos
+			attack_obj = null
 	update_ik(target_pos)
 
+func attack(obj):
+	attack_obj = obj
+	step_time = 0.0
+	var hand_pos = hand.global_position
+	start_pos = hand_pos
+	int_pos = global_position + (attack_obj.global_position - global_position).normalized() * 40
+
+# Funciton to mediate each step
 func step(g_pos):
 	if goal_pos == g_pos:
 		return
@@ -57,6 +83,8 @@ func step(g_pos):
 	int_pos = Vector2(mid, highest - step_height)
 	step_time = 0.0
 
+# Function to update the angles in the leg to the position required
+# to point at the target position
 func update_ik(target_pos):
 	var offset = target_pos - global_position
 	var dis_to_tar = offset.length()
@@ -74,6 +102,7 @@ func update_ik(target_pos):
 	joint1.rotation = next_angles.C
 	joint2.rotation = base_angles.C + next_angles.A
 
+# Function to calculate the angles of the side length
 func SSS_calc(side_a, side_b, side_c):
 	if side_c >= side_a + side_b:
 		return {"A": 0, "B": 0, "C": 0}
@@ -88,6 +117,7 @@ func SSS_calc(side_a, side_b, side_c):
 	
 	return {"A": angle_a, "B": angle_b, "C": angle_c}
 
+# Function to calculate the cosine law
 func law_of_cos(a, b, c):
 	if 2*a*b == 0:
 		return 0

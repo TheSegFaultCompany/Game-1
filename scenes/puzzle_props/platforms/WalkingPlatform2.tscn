@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scripts/puzzle_props/platforms/walkingPlatform.gd" type="Script" id=2]
+[ext_resource path="res://assets/tiles/city tileset/stone_floating_L.png" type="Texture" id=3]
+[ext_resource path="res://assets/tiles/city tileset/stone_float_R.png" type="Texture" id=4]
+[ext_resource path="res://assets/tiles/city tileset/stone_floating_M.png" type="Texture" id=5]
+[ext_resource path="res://scenes/enemies/spiderLikeThing/leg.tscn" type="PackedScene" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 41, 12 )
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+motion/sync_to_physics = true
+
+[node name="Node2D" type="Node2D" parent="KinematicBody2D"]
+position = Vector2( -32, 2 )
+
+[node name="stone_float_R" type="Sprite" parent="KinematicBody2D/Node2D"]
+position = Vector2( 64, -1 )
+texture = ExtResource( 4 )
+
+[node name="stone_floating_L" type="Sprite" parent="KinematicBody2D/Node2D"]
+texture = ExtResource( 3 )
+
+[node name="stone_floating_M" type="Sprite" parent="KinematicBody2D/Node2D"]
+position = Vector2( 32, 1 )
+texture = ExtResource( 5 )
+
+[node name="FrontLegs" type="Node2D" parent="KinematicBody2D"]
+position = Vector2( 0, -1 )
+z_as_relative = false
+
+[node name="leg" parent="KinematicBody2D/FrontLegs" instance=ExtResource( 6 )]
+
+[node name="leg2" parent="KinematicBody2D/FrontLegs" instance=ExtResource( 6 )]
+
+[node name="BackLegs" type="Node2D" parent="KinematicBody2D"]
+position = Vector2( 32, -3 )
+
+[node name="leg" parent="KinematicBody2D/BackLegs" instance=ExtResource( 6 )]
+position = Vector2( -32, 2 )
+flipped = false
+
+[node name="leg2" parent="KinematicBody2D/BackLegs" instance=ExtResource( 6 )]
+position = Vector2( -32, 2 )
+flipped = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+position = Vector2( 0, 1 )
+shape = SubResource( 1 )
+
+[node name="FrontCheck" type="RayCast2D" parent="KinematicBody2D"]
+position = Vector2( 112, 0 )
+enabled = true
+cast_to = Vector2( 0, 500 )
+
+[node name="BackCheck" type="RayCast2D" parent="KinematicBody2D"]
+position = Vector2( -112, 0 )
+enabled = true
+cast_to = Vector2( 0, 500 )
+
+[node name="Tween" type="Tween" parent="KinematicBody2D"]
+repeat = true
+playback_process_mode = 0
+playback/repeat = true
