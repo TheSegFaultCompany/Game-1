@@ -15,9 +15,7 @@ var next_jump_time = -1
 var eye_reach = 90
 var vision = 600
 
-
 onready var Player = get_parent().get_node("Player")
-onready var anim : KinematicBody2D = get_parent()
 
 #Function which sets the movement direction from the player
 func set_dir(target_dir):
@@ -35,7 +33,7 @@ func sees_player():
 	
 	#Create the extent shapes around the player
 	var player_pos = Player.get_global_position()
-	var player_extents = Player.get_node("CollisionShape2D").shape.extents
+	var player_extents = Player.get_node("CollisionStanding").shape.extents
 	var top_left = player_pos + Vector2(-player_extents.x, -player_extents.y)
 	var top_right = player_pos + Vector2(player_extents.x, -player_extents.y)
 	var bottom_left = player_pos + Vector2(-player_extents.x, player_extents.y)
@@ -59,7 +57,7 @@ func _process(delta):
 	distance = sqrt((distanceVector.x * distanceVector.x) + (distanceVector.y * distanceVector.y))
 	
 	#If the distance if close move the enemy towards the player
-	if distance < 300:
+	if distance < 300 and !Player.dead:
 	#If the player is to the left
 		if Player.position.x < position.x and next_dir != -1 and sees_player():
 			set_dir(-1)
@@ -78,10 +76,20 @@ func _process(delta):
 			if Player.position.y < position.y - 64 and sees_player():
 				motion.y = -800
 			next_jump_time = -1
-	
+		
+#		if !$RayCast2D.is_colliding():
+#			if next_dir != -1:
+#				set_dir(1)
+#			elif next_dir != 1:
+#				set_dir(-1)
+		
 		if dir == -1:
+			$Area2D/CollisionShape2D.position.x = -14
+			$RayCast2D.position.x = -11
 			$AnimatedSprite.flip_h = true
 		elif dir == 1:
+			$Area2D/CollisionShape2D.position.x = 14
+			$RayCast2D.position.x = 11
 			$AnimatedSprite.flip_h = false
 		motion.x = dir * 100
 	
@@ -91,3 +99,21 @@ func _process(delta):
 	motion.y += GRAVITY
 	
 	motion = move_and_slide(motion, UP)
+
+func _on_Player_turnOnShader():
+	pass
+#	if (ghost_dimension == true):
+#		ghost_dimension = false
+#		_activate_collision()
+#		self.show()
+#	elif (ghost_dimension == false):
+#		ghost_dimension = true
+#		_change_collision()
+#		self.hide()
+
+
+func _on_Area2D_body_entered(body):
+	if body.is_in_group("player"):
+		if !body.dead:
+			body.stab()
+	pass # Replace with function body.

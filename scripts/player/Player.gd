@@ -28,6 +28,7 @@ func _input(event: InputEvent) -> void:
 		else:
 			$chain.release()
 
+# Function for when the character is impaled by the spider
 func impale():
 	var bloodSpatter = preload("res://scenes/player/BloodEffect.tscn")
 	self.add_child(bloodSpatter.instance())
@@ -36,8 +37,33 @@ func impale():
 	$AnimatedSprite.play("default")
 	kill()
 
+# Function for when the character is stabbed by the spider
+func stab():
+	var bloodSpatter = preload("res://scenes/player/BloodEffect.tscn")
+	# Randomly generate the direction on which the character falls
+	var tween = Tween.new()
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var rand = rng.randi_range(-10, 10)
+	self.add_child(tween)
+	tween.connect("tween_all_completed", self, "_on_tween_complete")
+	if rand > 0:
+		tween.interpolate_property(self, "rotation_degrees", 0, 90, 0.5, Tween.TRANS_CIRC)
+	else:
+		tween.interpolate_property(self, "rotation_degrees", 0, -90, 0.5, Tween.TRANS_CIRC)
+	tween.start()
+	self.add_child(bloodSpatter.instance())
+
+# Function for when the turn is completed
+func _on_tween_complete():
+	kill()
+
+# Function for killing the player
 func kill():
 	dead = true
+	var car = load("res://scenes/menu items/testDeathScreen.tscn")
+	var temp = car.instance()
+	add_child(temp)
 
 # Process where all the movement calculations are done
 func _physics_process(_delta: float) -> void:
