@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 [gd_scene load_steps=12 format=2]
+=======
+[gd_scene load_steps=11 format=2]
+>>>>>>> 19c62fddef7255ccef89f1638d8ffbccda450653
 
 [ext_resource path="res://assets/tiles/city tileset/city_tileset.res" type="TileSet" id=1]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=2]
@@ -9,8 +13,12 @@
 [ext_resource path="res://scripts/enemies/ghostDimensionManager.gd" type="Script" id=7]
 [ext_resource path="res://scenes/enemies/simpleSearchingGuard/simpleSearchEnemy-NormalGuard.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/enemies/spiderLikeThing/body.tscn" type="PackedScene" id=9]
+<<<<<<< HEAD
 [ext_resource path="res://scenes/enemies/skeletonGuardStateMachine/skeletonGuardStateMachine.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/puzzle_props/platforms/WalkingPlatform2.tscn" type="PackedScene" id=11]
+=======
+[ext_resource path="res://scenes/objects/PushableObject.tscn" type="PackedScene" id=10]
+>>>>>>> 19c62fddef7255ccef89f1638d8ffbccda450653
 
 [node name="Node2D" type="Node2D"]
 
@@ -76,6 +84,7 @@ position = Vector2( -16, -328 )
 z_index = -1
 texture = ExtResource( 5 )
 
+<<<<<<< HEAD
 [node name="SpiderEnemy" parent="." instance=ExtResource( 9 )]
 position = Vector2( 357, -632 )
 
@@ -86,4 +95,12 @@ position = Vector2( 162, -152 )
 position = Vector2( 1178, -991 )
 move_to = Vector2( 1000, 100 )
 [connection signal="turnOnShader" from="Player" to="Player/Camera2D" method="_on_Player_turnOnShader"]
+=======
+[node name="KinematicBody2D" parent="." instance=ExtResource( 9 )]
+position = Vector2( -94, -158 )
+
+[node name="Object" parent="." instance=ExtResource( 10 )]
+position = Vector2( 715.361, -206.059 )
+>>>>>>> 19c62fddef7255ccef89f1638d8ffbccda450653
 [connection signal="turnOnShader" from="Player" to="EnemyGroup" method="_on_Player_turnOnShader"]
+[connection signal="turnOnShader" from="Player" to="Player/Camera2D" method="_on_Player_turnOnShader"]

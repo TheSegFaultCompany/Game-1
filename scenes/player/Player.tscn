@@ -44,7 +44,7 @@ grappling = true
 [node name="chain" parent="." instance=ExtResource( 17 )]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0.0595398, 0 )
+position = Vector2( 0.263443, 0.203903 )
 frames = SubResource( 1 )
 frame = 1
 __meta__ = {
@@ -58,3 +58,7 @@ disabled = true
 
 [node name="CollisionStanding" type="CollisionShape2D" parent="."]
 shape = SubResource( 3 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 25 )

@@ -20,13 +20,16 @@ export var anti_gravity = false
 # Motion vector for movement of the player object
 var motion = Vector2()
 
-# Function for the click event, use the grappling hook
+# Function for the click event, use the grappling hook or toggle reverse gravity
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.pressed and grappling == true:
 			$chain.shoot(event.position - get_viewport().size * 0.5)
 		else:
 			$chain.release()
+	if event is InputEventKey and event.pressed:
+		if event.scancode == KEY_T:
+			anti_gravity = !anti_gravity
 
 # Function for when the character is impaled by the spider
 func impale():
@@ -79,9 +82,11 @@ func _physics_process(_delta: float) -> void:
 	var walk = (Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")) * MAX_SPEED
 	
 	# Falling Up or Down, depending on the orientation of the gravity
-	if (anti_gravity):
+	if (anti_gravity == true):
+		$AnimatedSprite.flip_v = true
 		motion.y -= GRAVITY
 	else:
+		$AnimatedSprite.flip_v = false
 		motion.y += GRAVITY
 	
 	# Hook Physics
@@ -146,7 +151,17 @@ func _physics_process(_delta: float) -> void:
 		else:
 			if motion.x > 0:
 				$AnimatedSprite.play("Walking (right)")
-	motion = move_and_slide_with_snap(motion, Vector2(0, -35), UP)
+			pass
+			
+	if ($RayCast2D.is_colliding() == false):
+		motion = move_and_slide(motion, Vector2(0, -9.8))
+	else:
+		if ($RayCast2D.get_collider().get_class() == "RigidBody2D"):
+			motion.y = 0
+			_normalJumping(friction)
+			motion = move_and_slide(motion, UP)
+		else:
+			motion = move_and_slide(motion, UP)
 
 func _upsideDownJumping(friction: bool) -> void:
 	if Input.is_action_just_pressed("ui_up"):
