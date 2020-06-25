@@ -64,13 +64,10 @@ func _on_tween_complete():
 # Function for killing the player
 func kill():
 	dead = true
-	var car = load("res://scenes/menu items/testDeathScreen.tscn")
-	var temp = car.instance()
-	add_child(temp)
 
 # Process where all the movement calculations are done
 func _physics_process(_delta: float) -> void:
-	if dead:
+	if dead == true:
 		return
 	if Input.is_action_just_pressed("turn_on_shader"):
 		emit_signal("turnOnShader")
