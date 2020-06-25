@@ -61,13 +61,10 @@ func _on_tween_complete():
 # Function for killing the player
 func kill():
 	dead = true
-	var car = load("res://scenes/menu items/testDeathScreen.tscn")
-	var temp = car.instance()
-	add_child(temp)
 
 # Process where all the movement calculations are done
 func _physics_process(_delta: float) -> void:
-	if dead:
+	if dead == true:
 		return
 	if Input.is_action_just_pressed("turn_on_shader"):
 		emit_signal("turnOnShader")
@@ -79,9 +76,11 @@ func _physics_process(_delta: float) -> void:
 	var walk = (Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")) * MAX_SPEED
 	
 	# Falling Up or Down, depending on the orientation of the gravity
-	if (anti_gravity):
+	if (anti_gravity == true):
+		$AnimatedSprite.flip_v = true
 		motion.y -= GRAVITY
 	else:
+		$AnimatedSprite.flip_v = false
 		motion.y += GRAVITY
 	
 	# Hook Physics
@@ -146,7 +145,17 @@ func _physics_process(_delta: float) -> void:
 		else:
 			if motion.x > 0:
 				$AnimatedSprite.play("Walking (right)")
-	motion = move_and_slide_with_snap(motion, Vector2(0, -35), UP)
+			pass
+			
+	if ($RayCast2D.is_colliding() == false):
+		motion = move_and_slide(motion, Vector2(0, -9.8))
+	else:
+		if ($RayCast2D.get_collider().get_class() == "RigidBody2D"):
+			motion.y = 0
+			_normalJumping(friction)
+			motion = move_and_slide(motion, UP)
+		else:
+			motion = move_and_slide(motion, UP)
 
 func _upsideDownJumping(friction: bool) -> void:
 	if Input.is_action_just_pressed("ui_up"):
