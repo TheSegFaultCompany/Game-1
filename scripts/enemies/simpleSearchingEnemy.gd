@@ -54,7 +54,7 @@ func _physics_process(_delta):
 	
 	if (direction == 1 and _check_player(right_search) and ghost != ghost_dimension):
 		motion.x = 2*MAX_SPEED_WALKING
-		$AnimatedSprite.play("spotted")
+#		$AnimatedSprite.play("spotted")
 		# Code for detecting and chasing the player goes here
 	elif (direction == -1 and _check_player(left_search) and ghost != ghost_dimension):
 		motion.x = 2*MAX_SPEED_WALKING

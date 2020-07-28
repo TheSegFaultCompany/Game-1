@@ -1,0 +1,100 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://fonts/joystix_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/Player/gameOverScreen.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "game_over"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0.603922 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ColorRect/Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.996078, 0, 0, 0 ), Color( 0.996078, 0, 0, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ColorRect/Label2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.580392, 0, 0, 0 ), Color( 0.580392, 0, 0, 1 ) ]
+}
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/game_over = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect"]
+modulate = Color( 0.996078, 0, 0, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -121.5
+margin_top = -19.5
+margin_right = 121.5
+margin_bottom = 19.5
+custom_fonts/font = ExtResource( 1 )
+text = "Game Over"
+align = 2
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="ColorRect"]
+modulate = Color( 0.580392, 0, 0, 0 )
+margin_left = 208.0
+margin_top = 440.0
+margin_right = 856.0
+margin_bottom = 479.0
+custom_fonts/font = ExtResource( 1 )
+text = "Press Any Key To Restart"
+__meta__ = {
+"_edit_use_anchors_": false
+}

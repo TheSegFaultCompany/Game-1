@@ -1,0 +1,9 @@
+{
+    "000" : {"name" : "Artemis", "text": "Hello, My Name Is Artemis", "options": ["Continue"], "nextValue":[1]},
+
+    "001" : {"name" : "Betty", "text": "Hi, how's it going?",
+             "options": ["It's going Well", "I can't write dialogue"], "nextValue":[2, 3]},
+
+    "002" : {"name" : "Betty", "text": "Good!", "options":["End"], "nextValue":[6]},
+    "003" : {"name" : "Betty", "text": "Well, clealy not.", "options":["End"], "nextValue":[6]}
+}

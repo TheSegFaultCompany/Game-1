@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/dialog/DialogBox.tscn" type="PackedScene" id=1]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Control" parent="." groups=[
+"dialogBox",
+] instance=ExtResource( 1 )]

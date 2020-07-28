@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scripts/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/main character/walking (right)/walk_f2.png" type="Texture" id=2]
@@ -17,6 +17,9 @@
 [ext_resource path="res://assets/sprites/main character/walking (right)/walk_f3.png" type="Texture" id=15]
 [ext_resource path="res://assets/sprites/main character/walking (right)/walk_f9.png" type="Texture" id=16]
 [ext_resource path="res://scenes/player/chain.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/player/gameOverScreen.tscn" type="PackedScene" id=18]
+[ext_resource path="res://assets/lights/2DLight.png" type="Texture" id=19]
+[ext_resource path="res://scripts/dialogHandling/dialogueLoader.gd" type="Script" id=20]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -39,7 +42,12 @@ extents = Vector2( 8, 23.2081 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
-grappling = true
+
+[node name="Light2D" type="Light2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
+enabled = false
+texture = ExtResource( 19 )
+shadow_enabled = true
 
 [node name="chain" parent="." instance=ExtResource( 17 )]
 
@@ -62,3 +70,8 @@ shape = SubResource( 3 )
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 0, 25 )
+
+[node name="DeathScreen" parent="." instance=ExtResource( 18 )]
+
+[node name="dialogueLoader" type="Node2D" parent="."]
+script = ExtResource( 20 )
