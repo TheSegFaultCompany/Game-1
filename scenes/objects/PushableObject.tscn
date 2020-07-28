@@ -5,7 +5,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
 
-[node name="Object" type="RigidBody2D"]
+[node name="Object" type="RigidBody2D" groups=[
+"pushable",
+]]
 gravity_scale = 10.0
 
 [node name="Sprite" type="Sprite" parent="."]

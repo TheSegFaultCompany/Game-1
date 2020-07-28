@@ -38,6 +38,7 @@ syad = true
 ] instance=ExtResource( 2 )]
 position = Vector2( 859, -676 )
 z_index = 1
+grapplingOn = true
 syad = true
 
 [node name="EnemyGroup" type="Node" parent="."]
@@ -98,5 +99,5 @@ applied_torque = 2.0
 
 [node name="Syad" parent="." instance=ExtResource( 13 )]
 position = Vector2( -86, -54 )
-[connection signal="turnOnShader" from="Player" to="EnemyGroup" method="_on_Player_turnOnShader"]
 [connection signal="turnOnShader" from="Player" to="Camera2D" method="_on_Player_turnOnShader"]
+[connection signal="turnOnShader" from="Player" to="EnemyGroup" method="_on_Player_turnOnShader"]

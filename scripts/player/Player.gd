@@ -173,16 +173,12 @@ func _physics_process(_delta: float) -> void:
 	elif is_on_ceiling() and anti_gravity == true:
 		_upsideDownJumping(friction)
 	
-	if ($RayCast2D.is_colliding() == false):
-		motion = move_and_slide(motion, UP)
-	else:
-		if ($RayCast2D.get_collider().get_class() == "RigidBody2D"):
-			motion.y = 0
-			_normalJumping(friction)
-			motion = move_and_slide(motion, UP)
-		else:
-			motion = move_and_slide(motion, UP)
-
+	motion = move_and_slide(motion, UP, false, 4, PI/4, false)
+	
+	for index in get_slide_count():
+		var collision = get_slide_collision(index)
+		if collision.collider.is_in_group("pushable"):
+			collision.collider.apply_central_impulse(-collision.normal * 80)
 
 func _upsideDownJumping(friction: bool) -> void:
 	if Input.is_action_just_pressed("ui_up"):

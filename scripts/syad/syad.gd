@@ -35,7 +35,7 @@ func _physics_process(delta):
 	if is_on_floor():
 		_normal_jump(friction)
 	
-	motion = move_and_slide(motion, UP)
+	motion = move_and_slide(motion, UP, false, 4, PI/4, false)
 
 
 func _normal_jump(friction : bool)-> void:
